@@ -7,16 +7,50 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+
     <title>Tic Tac Toe</title>
   </head>
 
   <body>
 
-    <div id="head"></div>
+    <div id="container">
 
-    <main id="main"></main>
+      <div id="side1">
+        <h2 id="player1">Player 1</h2>
+        <div class="gg-user" id="icon1"></div>
+      </div>
 
-    <footer id="footer"></footer>
+      <main id="main">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </main>
+
+      <div id="side2">
+        <h2 id="player2">Player 2</h2>
+        <div id="icon2"></div>
+      </div>
+
+    </div>
+
+
+
+    <div id="choose">
+      <h1>Choose your opponent</h1>
+      <div></div>
+      <h3>Player</h3>
+      <h3>AI</h3>
+      <div></div>
+    </div>
 
   </body>
 </html>
