@@ -19,20 +19,22 @@ body {
     align-items: center;
     justify-content: center;
     background-color: var(--color2);
+    padding: 3vmin;
 }
 
 h2 {
     color: var(--color3);
-    font-size: 5vmin;
+    font-size: 4vw;
 }
 
 #container {
     width:100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 60vmin 1fr;
+    grid-template-columns: 1fr 54vmin 1fr;
     align-items: center;
     background-color: var(--color2);
+    gap: 3vw;
 }
 
 #side1, #side2 {
@@ -40,20 +42,26 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: var(--color1);
+}
+
+#userAdversary {
+    display: block;
+}
+
+#IAAdversary {
+    display: none;
 }
 
 #main {
     display: grid;
-    grid-template: repeat(3, 20vmin) / repeat(3, 20vmin);
+    grid-template: repeat(3, 18vmin) / repeat(3, 18vmin);
     background-color: var(--color1);
     gap: 5px;
 }
 
 .cell {
     background-color: var(--color2);
-}
-
-#side2 {
 }
 
 #chooseContainer {
@@ -83,4 +91,5 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: var(--color1);
 }

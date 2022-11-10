@@ -9,6 +9,10 @@
 
 // USER INTERFACE
 
+    // User chooise
+
+const 
+
     // Render the contents of the gameboard array
 
     // Interaction with gameboard
