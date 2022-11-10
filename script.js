@@ -9,9 +9,29 @@
 
 // USER INTERFACE
 
-    // User chooise
+    // User chooice
 
-const 
+const opponentChoice = (() => {
+    let userChoice = document.querySelector("#userChoice");
+    let AIChoice = document.querySelector("#AIChoice");
+
+    const userAdversary = document.querySelector("#userAdversary");
+    const AIAdversary = document.querySelector("#AIAdversary");
+
+    const chooseContainer = document.querySelector("#chooseContainer");
+
+    userChoice.addEventListener("click", () => {
+        userAdversary.style.display = "flex";
+        AIAdversary.style.display = "none";
+        chooseContainer.style.display = "none";
+    });
+
+    AIChoice.addEventListener("click", () => {
+        AIAdversary.style.display = "flex";
+        userAdversary.style.display = "none";
+        chooseContainer.style.display = "none";
+    });
+})();
 
     // Render the contents of the gameboard array
 

@@ -8,6 +8,9 @@
     --color1: rgb(206, 153, 153);
     --color2: white;
     --color3: rgb(136, 68, 68);
+    --color4: rgb(235, 206, 206);
+    --color5: rgb(168, 118, 118);
+    --color6: rgb(246, 232, 232);
 
     font-family: 'Poor Story', cursive;
 }
@@ -46,10 +49,10 @@ h2 {
 }
 
 #userAdversary {
-    display: block;
+    display: none;
 }
 
-#IAAdversary {
+#AIAdversary {
     display: none;
 }
 
@@ -64,17 +67,59 @@ h2 {
     background-color: var(--color2);
 }
 
-#chooseContainer {
+#chooseContainer, #nameContainer {
     width: 100vw;
     height: 100vh;
     background-color: rgba(52, 46, 46, 0.5);
-    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
 }
 
-#choose {
+#chooseContainer {
+    display: none;
+}
+
+#nameContainer {
+    display: flex;
+}
+
+input {
+    color: var(--color3);
+    width: 100%;
+    padding: 2vmin;
+    border-radius: 3vmin;
+    background-color: var(--color4);
+    font-size: 3vmin;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+::placeholder {
+    color: var(--color5);
+}
+
+input:focus {
+    outline: none;
+    box-shadow: rgba(80, 46, 46, 0.1) 0px 4px 16px, rgba(72, 39, 39, 0.1) 0px 8px 24px, rgba(110, 55, 55, 0.1) 0px 16px 56px;
+    transform: scale(1.1);
+}
+
+/* input hoover */
+
+button {
+    font-size: 3vmin;
+    color: var(--color3);
+    padding: 4% 10%;
+    border: none;
+    background-color: var(--color6);
+    border-radius: 3vmin;
+    box-shadow: rgba(26, 17, 17, 0.2) 0px 4px 16px, rgba(26, 17, 17, 0.2) 0px 8px 24px, rgba(26, 17, 17, 0.2) 0px 16px 56px;
+    cursor: pointer;
+}
+
+#choose, #name {
     background-color: white;
     color: var(--color3);
     font-size: 3vmin;
