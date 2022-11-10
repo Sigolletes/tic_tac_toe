@@ -87,7 +87,7 @@ h2 {
 /* ............................................................................... */
 /* USER FIRSTS ELECTIONS - ADVERSARY AND NAMES */
 
-#chooseContainer, #nameContainer {
+#chooseContainer, #nameContainer, #winnerContainer {
     width: 100vw;
     height: 100vh;
     background-color: rgba(52, 46, 46, 0.5);
@@ -104,6 +104,9 @@ h2 {
     display: none;
 }
 
+#winnerContainer {
+    display: flex;
+}
 
 .optionContainer {
     display: flex;
@@ -156,7 +159,7 @@ button {
     box-shadow: 0 0 10px rgba(161, 111, 111, 0.6);
 }
 
-#choose, #name {
+#choose, #name, #winner {
     background-color: white;
     color: var(--color3);
     font-size: 3vmin;
@@ -167,6 +170,19 @@ button {
     padding: 10%;
     border-radius: 10vmin;
     box-shadow: rgba(133, 56, 56, 0.25) 0px 50px 100px -20px, rgba(138, 61, 61, 0.3) 0px 30px 60px -30px, rgba(52, 25, 25, 0.35) 0px -2px 6px 0px inset;
+}
+
+#winner {
+    gap: 1vh;
+}
+
+#winner h1 {
+    font-size: 8vmin;
+}
+
+#winner h3 {
+    color: var(--color1);
+    padding-top: 3vh;
 }
 
 /* ............................................................................... */

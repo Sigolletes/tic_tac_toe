@@ -24,7 +24,19 @@ console.log(board);
     
     // Factory - Players object
 
+const playerFactory = (name, human) => {
 
+    let points = 0;
+
+    const addPoints = () => this.points = points++;
+
+    const winner = () => {
+        const winnerText = document.querySelector("#winnerText");
+        winnerText.innerText = this.name;
+    }
+
+    return { name, human, points, winner};
+}
 
 let player1 = "Player 1";
 let player2 = "Player 2";
