@@ -39,7 +39,7 @@ h2 {
     width:100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 54vmin 1fr;
+    grid-template-columns: 1fr 56vmin 1fr;
     align-items: center;
     background-color: var(--color2);
     gap: 3vw;
@@ -65,11 +65,21 @@ h2 {
     display: grid;
     grid-template: repeat(3, 18vmin) / repeat(3, 18vmin);
     background-color: var(--color1);
-    gap: 5px;
+    gap: 1vmin;
 }
 
 .cell {
     background-color: var(--color2);
+    color: var(--color3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10vmin;
+    cursor: pointer;
+}
+
+.cell:hover {
+    background-color: var(--color6);
 }
 
 
