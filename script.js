@@ -1,6 +1,25 @@
 // FUNCTIONS
 
     // Module - Gameboard Object that stores the gameboard
+
+const gameboardModule = (function() {
+    let gameboard = Array(9);
+
+    const mark = (index, user) => {
+        if (user == player1) {
+            gameboard(index) = "X";
+        } else {
+            gameboard(index) = "O";
+        }
+    }
+
+    return {
+        gameboard
+    }
+})();
+board = gameboardModule;
+console.log(board);
+
     
     // Factory - Players object
 
@@ -66,6 +85,22 @@ const nameChoice = (() => {
 })();
 
     // Render the contents of the gameboard array
+
+const renderGameboard = (() => {
+    const p0 = document.querySelector("#p0");
+    const p1 = document.querySelector("#p1");
+    const p2 = document.querySelector("#p2");
+    const p3 = document.querySelector("#p3");
+    const p4 = document.querySelector("#p4");
+    const p5 = document.querySelector("#p5");
+    const p6 = document.querySelector("#p6");
+    const p7 = document.querySelector("#p7");
+    const p8 = document.querySelector("#p8");
+
+    for (let p of board) {
+        
+    }
+})();
 
     // Interaction with gameboard
 
