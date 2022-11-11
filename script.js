@@ -12,9 +12,9 @@ const gameboardModule = (function() {
 
     const mark = (index) => {
         if (userTurn === player1.name) {
-            gameboard[index] = "X";
+            gameboard[index] = player1.mark;
         } else {
-            gameboard[index] = "O";
+            gameboard[index] = player2.mark;
         }
     }
     return {
@@ -26,22 +26,32 @@ let board = gameboardModule;
 
     // Factory - Players object
 
-const playerFactory = (name, human) => {
+const playerFactory = (name, human, mark) => {
     let points = 0;
 
     const winner = () => {
         const winnerText = document.querySelector("#winnerText");
         winnerText.innerText = name;
     }
-    return { name, human, points, winner };
+    return { name, human, mark, points, winner };
 }
-let player1 = playerFactory("Player 1", true);
-let player2 = playerFactory("Player2", false);
+let player1 = playerFactory("Player 1", true, "X");
+let player2 = playerFactory("Player 2", false, "O");
 let userTurn = player1.name;
 
     // Module - Display Controller - Object to control the flow of the game
 
 const controller = (function() {
+    function randomTurn() {
+        let randomNumber = Math.floor(Math.random() * (3 - 1) + 1);
+
+        if (randomNumber === 1) {
+            userTurn = player1.name;
+        } else {
+            userTurn = player2.name;
+        }
+    }
+
     function checkWinner(user) {
         if (board.gameboard[0] === user && board.gameboard[1] === user && board.gameboard[2] === user || 
             board.gameboard[3] === user && board.gameboard[4] === user && board.gameboard[5] === user || 
@@ -52,16 +62,20 @@ const controller = (function() {
             board.gameboard[0] === user && board.gameboard[4] === user && board.gameboard[8] === user || 
             board.gameboard[2] === user && board.gameboard[4] === user && board.gameboard[6] === user) {
 
-                if (user === "X") {
+                if (user === player1.mark) {
                     player1.points = player1.points + 1;
                     scoreboard.scoreboardUpdate();
                     renderGameboard.cleanGameboard();
+                    randomTurn();
+                    gameboardInteraction.setTurn();
                     player1.winner();
                     winnerContainer.style.display = "flex";
                 } else {
                     player2.points = player2.points + 1;
                     scoreboard.scoreboardUpdate();
                     renderGameboard.cleanGameboard();
+                    randomTurn();
+                    gameboardInteraction.setTurn();
                     player2.winner();
                     winnerContainer.style.display = "flex";
                 }
@@ -99,12 +113,14 @@ const opponentChoice = (() => {
         AIAdversary.style.display = "none";
         chooseContainer.style.display = "none";
         nameContainer.style.display = "flex";
+        player2.human = true;
     });
     AIChoice.addEventListener("click", () => {
         AIAdversary.style.display = "flex";
         userAdversary.style.display = "none";
         chooseContainer.style.display = "none";
         nameContainer.style.display = "flex";
+        player2.human = false;
     });
 })();
 
@@ -121,6 +137,7 @@ const nameChoice = (() => {
         if (name1.value !== "") {
             player1.name = name1.value;
             titlePlayer1.innerText = player1.name;
+            userTurn = player1.name;
         } 
         if (name2.value !== "") {
             player2.name = name2.value;
@@ -180,15 +197,13 @@ const gameboardInteraction = (() => {
     const side1 = document.querySelector("#side1");
     const side2 = document.querySelector("#side2");
 
-    function changeTurn() {
-        if (userTurn === player1.name) {
-            userTurn = player2.name;
+    function setTurn() {
+        if (userTurn === player2.name) {
             turn1.style.display = "none";
             turn2.style.display = "flex";
             side1.classList.remove("turn");
             side2.classList.add("turn");
         } else {
-            userTurn = player1.name;
             turn2.style.display = "none";
             turn1.style.display = "flex";
             side2.classList.remove("turn");
@@ -196,13 +211,22 @@ const gameboardInteraction = (() => {
         }
     }
 
+    function changeTurn() {
+        if (userTurn === player1.name) {
+            userTurn = player2.name;
+        } else {
+            userTurn = player1.name;
+        }
+        setTurn();
+    }
+
     function movement(index, position) {
         board.mark(index);
-        renderGameboard.render();
         changeTurn();
+        renderGameboard.render();
         position.style.cursor = "default";
-        controller.checkWinner("X");
-        controller.checkWinner("O");
+        controller.checkWinner(player1.mark);
+        controller.checkWinner(player2.mark);
     }
 
     function boardEvent() {
@@ -232,10 +256,11 @@ const gameboardInteraction = (() => {
         }, { once: true });
         p8.addEventListener("click", () => {
             movement(8, p8);
-        });
+        }, { once: true });
     }
     return {
-        boardEvent
+        boardEvent,
+        setTurn
     }
 })();
 
