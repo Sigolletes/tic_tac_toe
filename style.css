@@ -105,7 +105,7 @@ h2 {
 }
 
 #winnerContainer {
-    display: flex;
+    display: none;
 }
 
 .optionContainer {
@@ -173,7 +173,8 @@ button {
 }
 
 #winner {
-    gap: 1vh;
+    gap: 5vh;
+    text-align: center;
 }
 
 #winner h1 {
@@ -182,7 +183,11 @@ button {
 
 #winner h3 {
     color: var(--color1);
-    padding-top: 3vh;
+    padding-top: 1vh;
+}
+
+#back {
+    display: flex;
 }
 
 /* ............................................................................... */
