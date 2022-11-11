@@ -47,7 +47,20 @@ const playerFactory = (name, human) => {
 
     // Module - Display Controller - Object to control the flow of the game
 
+const controller = (function() {
 
+    function checkWinner() {
+        if (board.gameboard[0] === board.gameboard[1]) {
+            console.log(true)
+        }
+
+    }
+
+    return {
+        checkWinner
+    }
+
+})();
 
 
 // USER INTERFACE
@@ -184,6 +197,7 @@ const gameboardInteraction = (() => {
         renderGameboard.render();
         changeTurn();
         position.style.cursor = "default";
+        controller.checkWinner();
     }
 
     p0.addEventListener("click", () => {
