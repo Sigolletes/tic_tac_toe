@@ -10,7 +10,7 @@ let userTurn = player1;
     // Module - Gameboard Object that stores the gameboard
 
 const gameboardModule = (function() {
-    let gameboard = ["","","X","","","","O","",""];
+    let gameboard = ["","","","","","","","",""];
 
     const mark = (index) => {
         if (userTurn === player1) {
@@ -46,6 +46,8 @@ const playerFactory = (name, human) => {
 
 
     // Module - Display Controller - Object to control the flow of the game
+
+
 
 
 // USER INTERFACE
@@ -151,37 +153,66 @@ renderGameboard.cleanGameboard();
     // Interaction with gameboard
 
 const gameboardInteraction = (() => {
+    const turn1 = document.querySelector("#turn1");
+    const turn2 = document.querySelector("#turn2");
+
+    const side1 = document.querySelector("#side1");
+    const side2 = document.querySelector("#side2");
+
     function changeTurn() {
         if (userTurn === player1) {
             userTurn = player2;
+
+            turn1.style.display = "none";
+            turn2.style.display = "flex";
+
+            side1.classList.remove("turn");
+            side2.classList.add("turn");
         } else {
             userTurn = player1;
+
+            turn2.style.display = "none";
+            turn1.style.display = "flex";
+
+            side2.classList.remove("turn");
+            side1.classList.add("turn");
         }
     }
 
     function movement(index, position) {
-   
         board.mark(index);
         renderGameboard.render();
-        position.onclick = null;
         changeTurn();
-/* SOLVE THE PROPAGATION .............................................................*/
-        e.preventDefault();
-        console.log(userTurn);
-        
+        position.style.cursor = "default";
     }
 
-    p0.addEventListener("click", movement(0, p0), false);
-    
-    p0.onclick = movement(0, p0);
-    p1.onclick = movement(1, p1);
-    p2.onclick = movement(2, p2);
-    p3.onclick = movement(3, p3);
-    p4.onclick = movement(4, p4);
-    p5.onclick = movement(5, p5);
-    p6.onclick = movement(6, p6);
-    p7.onclick = movement(7, p7);
-    p8.onclick = movement(8, p8);
+    p0.addEventListener("click", () => {
+        movement(0, p0);  
+    }, { once: true });
+    p1.addEventListener("click", () => {
+        movement(1, p1);
+    }, { once: true });
+    p2.addEventListener("click", () => {
+        movement(2, p2);
+    }, { once: true });
+    p3.addEventListener("click", () => {
+        movement(3, p3);
+    }, { once: true });
+    p4.addEventListener("click", () => {
+        movement(4, p4);
+    }, { once: true });
+    p5.addEventListener("click", () => {
+        movement(5, p5);
+    }, { once: true });
+    p6.addEventListener("click", () => {
+        movement(6, p6);
+    }, { once: true });
+    p7.addEventListener("click", () => {
+        movement(7, p7);
+    }, { once: true });
+    p8.addEventListener("click", () => {
+        movement(8, p8);
+    });
 })();
 
     // Check for Game Over

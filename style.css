@@ -31,7 +31,6 @@ body {
 /* MAIN CONTENT */
 
 h2 {
-    color: var(--color3);
     font-size: 4vw;
 }
 
@@ -51,6 +50,7 @@ h2 {
     justify-content: center;
     align-items: center;
     color: var(--color1);
+    text-align: center;
 }
 
 #userAdversary {
@@ -81,6 +81,25 @@ h2 {
 .cell:hover {
     background-color: var(--color6);
 }
+
+#turn1 {
+    display: flex;
+}
+
+#turn2 {
+    display: none;
+}
+
+#container .turn {
+    transform: scale(1.2);
+    color: var(--color3);
+    text-shadow: 0px 4px 3px rgba(157, 69, 69, 0.2),
+             0px 8px 13px rgba(157, 69, 69, 0.2),
+             0px 18px 23px rgba(157, 69, 69, 0.2);
+
+}
+
+
 
 
 
