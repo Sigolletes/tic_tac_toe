@@ -31,7 +31,7 @@ body {
 /* MAIN CONTENT */
 
 h2 {
-    font-size: 4vw;
+    font-size: 4vmin;
 }
 
 #container {
@@ -42,6 +42,10 @@ h2 {
     align-items: center;
     background-color: var(--color2);
     gap: 3vw;
+}
+
+#container h1 {
+    font-size: 5vmin;
 }
 
 #side1, #side2 {
@@ -181,12 +185,12 @@ button {
 #choose, #name, #winner {
     background-color: white;
     color: var(--color3);
-    font-size: 3vmin;
+    font-size: 2.3vmin;
     display: flex;
     flex-direction: column;
     gap: 4vh;
     align-items: center;
-    padding: 10%;
+    padding: 5vmin;
     border-radius: 10vmin;
     box-shadow: rgba(133, 56, 56, 0.25) 0px 50px 100px -20px, rgba(138, 61, 61, 0.3) 0px 30px 60px -30px, rgba(52, 25, 25, 0.35) 0px -2px 6px 0px inset;
 }
