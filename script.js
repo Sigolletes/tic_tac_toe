@@ -3,6 +3,10 @@
 const nameContainer = document.querySelector("#nameContainer");
 const winnerContainer = document.querySelector("#winnerContainer");
 
+// Global logical variables
+
+let userTurn = "";
+
 // FUNCTIONS
 
     // Module - Gameboard Object that stores the gameboard
@@ -37,7 +41,6 @@ const playerFactory = (name, human, mark) => {
 }
 let player1 = playerFactory("Player 1", true, "X");
 let player2 = playerFactory("Player 2", false, "O");
-let userTurn = player1.name;
 
     // Module - Display Controller - Object to control the flow of the game
 
@@ -82,7 +85,8 @@ const controller = (function() {
         }
     }
     return {
-        checkWinner
+        checkWinner,
+        randomTurn
     }
 })();
 
@@ -137,7 +141,6 @@ const nameChoice = (() => {
         if (name1.value !== "") {
             player1.name = name1.value;
             titlePlayer1.innerText = player1.name;
-            userTurn = player1.name;
         } 
         if (name2.value !== "") {
             player2.name = name2.value;
@@ -145,6 +148,8 @@ const nameChoice = (() => {
         } 
         nameContainer.style.display = "none";
         gameboardInteraction.boardEvent();
+        controller.randomTurn();
+        gameboardInteraction.setTurn();
     });
 })();
 
@@ -214,7 +219,7 @@ const gameboardInteraction = (() => {
     function changeTurn() {
         if (userTurn === player1.name) {
             userTurn = player2.name;
-        } else {
+        } else if (userTurn === player2.name) {
             userTurn = player1.name;
         }
         setTurn();
@@ -222,8 +227,8 @@ const gameboardInteraction = (() => {
 
     function movement(index, position) {
         board.mark(index);
-        changeTurn();
         renderGameboard.render();
+        changeTurn();
         position.style.cursor = "default";
         controller.checkWinner(player1.mark);
         controller.checkWinner(player2.mark);
