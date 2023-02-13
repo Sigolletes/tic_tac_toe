@@ -5,6 +5,7 @@ const winnerContainer = document.querySelector("#winnerContainer");
 
 // Global logical variables
 
+let firstTurn = "";
 let userTurn = "";
 
 // FUNCTIONS
@@ -41,19 +42,32 @@ const playerFactory = (name, human, mark) => {
 }
 let player1 = playerFactory("Player 1", true, "X");
 let player2 = playerFactory("Player 2", false, "O");
+firstTurn = player1.name;
 
     // Module - Display Controller - Object to control the flow of the game
 
 const controller = (function() {
-    function randomTurn() {
-        let randomNumber = Math.floor(Math.random() * (3 - 1) + 1);
+    function gameTurn() {
+                    console.log('gameTurn init', firstTurn, userTurn);
+        if (firstTurn === player1.name) {
+            firstTurn = player2.name;
+            userTurn = player2.name;
+        } else {
+            firstTurn = player1.name;
+            userTurn = player1.name;
+        }
+                    console.log('gameTurn final', firstTurn, userTurn);
+    }
 
+    /* function randomTurn() {
+        let randomNumber = Math.floor(Math.random() * 2);
+        console.log(randomNumber);
         if (randomNumber === 1) {
             userTurn = player1.name;
         } else {
             userTurn = player2.name;
         }
-    }
+    } */
 
     function checkWinner(user) {
         if (board.gameboard[0] === user && board.gameboard[1] === user && board.gameboard[2] === user || 
@@ -69,7 +83,7 @@ const controller = (function() {
                     player1.points = player1.points + 1;
                     scoreboard.scoreboardUpdate();
                     renderGameboard.cleanGameboard();
-                    randomTurn();
+                    gameTurn();
                     gameboardInteraction.setTurn();
                     player1.winner();
                     winnerContainer.style.display = "flex";
@@ -77,7 +91,7 @@ const controller = (function() {
                     player2.points = player2.points + 1;
                     scoreboard.scoreboardUpdate();
                     renderGameboard.cleanGameboard();
-                    randomTurn();
+                    gameTurn();
                     gameboardInteraction.setTurn();
                     player2.winner();
                     winnerContainer.style.display = "flex";
@@ -86,7 +100,7 @@ const controller = (function() {
     }
     return {
         checkWinner,
-        randomTurn
+        gameTurn
     }
 })();
 
@@ -148,7 +162,7 @@ const nameChoice = (() => {
         } 
         nameContainer.style.display = "none";
         gameboardInteraction.boardEvent();
-        controller.randomTurn();
+        controller.gameTurn();
         gameboardInteraction.setTurn();
     });
 })();
@@ -226,10 +240,12 @@ const gameboardInteraction = (() => {
     }
 
     function movement(index, position) {
+                    console.log('movement init', userTurn);
         board.mark(index);
         renderGameboard.render();
-        changeTurn();
         position.style.cursor = "default";
+        changeTurn();
+                    console.log('movement final', userTurn);
         controller.checkWinner(player1.mark);
         controller.checkWinner(player2.mark);
     }
