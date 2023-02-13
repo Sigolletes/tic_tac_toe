@@ -52,9 +52,11 @@ const controller = (function() {
         if (firstTurn === player1.name) {
             firstTurn = player2.name;
             userTurn = player2.name;
-        } else {
+        } else if (firstTurn === player2.name) {
             firstTurn = player1.name;
             userTurn = player1.name;
+        } else {
+            console.log("Some problem with controller.gameTurn");
         }
                     console.log('gameTurn final', firstTurn, userTurn);
     }
