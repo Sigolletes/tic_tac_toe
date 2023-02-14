@@ -5,7 +5,7 @@ const winnerContainer = document.querySelector("#winnerContainer");
 
 // Global logical variables
 
-let firstTurn = "";
+let firstTurn = false;
 let userTurn = "";
 
 // FUNCTIONS
@@ -16,11 +16,18 @@ const gameboardModule = (function() {
     let gameboard = ["","","","","","","","",""];
 
     const mark = (index) => {
+                /*     console.log('board.mark init', index, userTurn);
+                    console.log('#############################################################'); */
         if (userTurn === player1.name) {
+                 /*    console.log('board.mark if userTurn === player1.name', player1.mark); */
             gameboard[index] = player1.mark;
-        } else {
+        } else if (userTurn === player2.name) {
+       /*      console.log('board.mark if userTurn === player2.name', player2.mark); */
             gameboard[index] = player2.mark;
+        } else {
+            console.log("Some problem with gameboardModule.mark");
         }
+                /*     console.log('#############################################################'); */
     }
     return {
         gameboard,
@@ -42,23 +49,24 @@ const playerFactory = (name, human, mark) => {
 }
 let player1 = playerFactory("Player 1", true, "X");
 let player2 = playerFactory("Player 2", false, "O");
-firstTurn = player1.name;
 
     // Module - Display Controller - Object to control the flow of the game
 
 const controller = (function() {
     function gameTurn() {
+                     console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
                     console.log('gameTurn init', firstTurn, userTurn);
-        if (firstTurn === player1.name) {
-            firstTurn = player2.name;
+        if (firstTurn) {
+            firstTurn = false;
             userTurn = player2.name;
-        } else if (firstTurn === player2.name) {
-            firstTurn = player1.name;
+        } else if (!firstTurn) {
+            firstTurn = true;
             userTurn = player1.name;
         } else {
             console.log("Some problem with controller.gameTurn");
         }
                     console.log('gameTurn final', firstTurn, userTurn);
+                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     }
 
     /* function randomTurn() {
@@ -83,21 +91,26 @@ const controller = (function() {
 
                 if (user === player1.mark) {
                     player1.points = player1.points + 1;
-                    scoreboard.scoreboardUpdate();
+                /*     scoreboard.scoreboardUpdate();
                     renderGameboard.cleanGameboard();
                     gameTurn();
-                    gameboardInteraction.setTurn();
+                    gameboardInteraction.setTurn(); */
                     player1.winner();
-                    winnerContainer.style.display = "flex";
+                  /*   winnerContainer.style.display = "flex"; */
                 } else {
                     player2.points = player2.points + 1;
-                    scoreboard.scoreboardUpdate();
+                   /*  scoreboard.scoreboardUpdate();
                     renderGameboard.cleanGameboard();
                     gameTurn();
-                    gameboardInteraction.setTurn();
+                    gameboardInteraction.setTurn(); */
                     player2.winner();
-                    winnerContainer.style.display = "flex";
+                 /*    winnerContainer.style.display = "flex"; */
                 }
+                scoreboard.scoreboardUpdate();
+             /*    renderGameboard.cleanGameboard(); */
+                gameTurn();
+                gameboardInteraction.setTurn();
+                winnerContainer.style.display = "flex";
         }
     }
     return {
@@ -242,43 +255,68 @@ const gameboardInteraction = (() => {
     }
 
     function movement(index, position) {
+                     console.log('------------------------------------------------------------------');
                     console.log('movement init', userTurn);
-        board.mark(index);
-        renderGameboard.render();
-        position.style.cursor = "default";
-        changeTurn();
-                    console.log('movement final', userTurn);
+        if (gameboardModule.gameboard[index] === "") {
+            board.mark(index);
+            renderGameboard.render();
+            position.style.cursor = "default";
+            changeTurn();
+
+
+        }
         controller.checkWinner(player1.mark);
         controller.checkWinner(player2.mark);
+                    console.log('movement final', userTurn);
+                    console.log('------------------------------------------------------------------');
+        return;
     }
 
     function boardEvent() {
         p0.addEventListener("click", () => {
-            movement(0, p0);  
+            if (gameboardModule.gameboard[0] === "") {
+                movement(0, p0);  
+            }
         }, { once: true });
         p1.addEventListener("click", () => {
-            movement(1, p1);
+            if (gameboardModule.gameboard[1] === "") {
+                movement(1, p1);  
+            }
         }, { once: true });
         p2.addEventListener("click", () => {
-            movement(2, p2);
+            if (gameboardModule.gameboard[2] === "") {
+                movement(2, p2);  
+            }
         }, { once: true });
         p3.addEventListener("click", () => {
-            movement(3, p3);
+            if (gameboardModule.gameboard[3] === "") {
+                movement(3, p3);  
+            }
         }, { once: true });
         p4.addEventListener("click", () => {
-            movement(4, p4);
+            if (gameboardModule.gameboard[4] === "") {
+                movement(4, p4);  
+            }
         }, { once: true });
         p5.addEventListener("click", () => {
-            movement(5, p5);
+            if (gameboardModule.gameboard[5] === "") {
+                movement(5, p5);  
+            }
         }, { once: true });
         p6.addEventListener("click", () => {
-            movement(6, p6);
+            if (gameboardModule.gameboard[6] === "") {
+                movement(6, p6);  
+            }
         }, { once: true });
         p7.addEventListener("click", () => {
-            movement(7, p7);
+            if (gameboardModule.gameboard[7] === "") {
+                movement(7, p7);  
+            }
         }, { once: true });
         p8.addEventListener("click", () => {
-            movement(8, p8);
+            if (gameboardModule.gameboard[8] === "") {
+                movement(8, p8);  
+            }
         }, { once: true });
     }
     return {
@@ -309,6 +347,7 @@ const returnButton = (() => {
 
     returnBttn.addEventListener("click", () => {
         winnerContainer.style.display = "none";
+        renderGameboard.cleanGameboard();
         renderGameboard.render();
         gameboardInteraction.boardEvent();
     })
