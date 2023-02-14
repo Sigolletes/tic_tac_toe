@@ -8,6 +8,8 @@ const winnerContainer = document.querySelector("#winnerContainer");
 let firstTurn = false;
 let userTurn = "";
 
+console.log(Math.floor(Math.random() * 10));
+
 // FUNCTIONS
 
     // Module - Gameboard Object that stores the gameboard
@@ -64,6 +66,10 @@ const controller = (function() {
             userTurn = player1.name;
         } else {
             console.log("Some problem with controller.gameTurn");
+        }
+
+        if (player2.human = false || userTurn === player2.name) {
+            ai.easy();
         }
                     console.log('gameTurn final', firstTurn, userTurn);
                     console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
@@ -252,12 +258,16 @@ const gameboardInteraction = (() => {
             userTurn = player1.name;
         }
         setTurn();
+
+        if (player2.human = false || userTurn === player2.name) {
+            ai.easy();
+        }
     }
 
     function movement(index, position) {
                      console.log('------------------------------------------------------------------');
                     console.log('movement init', userTurn);
-        if (gameboardModule.gameboard[index] === "") {
+        if (board.gameboard[index] === "") {
             board.mark(index);
             renderGameboard.render();
             position.style.cursor = "default";
@@ -274,54 +284,55 @@ const gameboardInteraction = (() => {
 
     function boardEvent() {
         p0.addEventListener("click", () => {
-            if (gameboardModule.gameboard[0] === "") {
+            if (board.gameboard[0] === "") {
                 movement(0, p0);  
             }
         }, { once: true });
         p1.addEventListener("click", () => {
-            if (gameboardModule.gameboard[1] === "") {
+            if (board.gameboard[1] === "") {
                 movement(1, p1);  
             }
         }, { once: true });
         p2.addEventListener("click", () => {
-            if (gameboardModule.gameboard[2] === "") {
+            if (board.gameboard[2] === "") {
                 movement(2, p2);  
             }
         }, { once: true });
         p3.addEventListener("click", () => {
-            if (gameboardModule.gameboard[3] === "") {
+            if (board.gameboard[3] === "") {
                 movement(3, p3);  
             }
         }, { once: true });
         p4.addEventListener("click", () => {
-            if (gameboardModule.gameboard[4] === "") {
+            if (board.gameboard[4] === "") {
                 movement(4, p4);  
             }
         }, { once: true });
         p5.addEventListener("click", () => {
-            if (gameboardModule.gameboard[5] === "") {
+            if (board.gameboard[5] === "") {
                 movement(5, p5);  
             }
         }, { once: true });
         p6.addEventListener("click", () => {
-            if (gameboardModule.gameboard[6] === "") {
+            if (board.gameboard[6] === "") {
                 movement(6, p6);  
             }
         }, { once: true });
         p7.addEventListener("click", () => {
-            if (gameboardModule.gameboard[7] === "") {
+            if (board.gameboard[7] === "") {
                 movement(7, p7);  
             }
         }, { once: true });
         p8.addEventListener("click", () => {
-            if (gameboardModule.gameboard[8] === "") {
+            if (board.gameboard[8] === "") {
                 movement(8, p8);  
             }
         }, { once: true });
     }
     return {
         boardEvent,
-        setTurn
+        setTurn,
+        movement
     }
 })();
 
@@ -358,3 +369,55 @@ const returnButton = (() => {
     // Clean the Interface, users names, button to start/ restart the game / congratulation winner
 
 // IA    
+
+// SOLVE POSITION IN AI WHEN CALL MOVEMENT
+
+const ai = (() => {
+    function easy() {   
+        let index;
+        let position;
+
+        do {
+            index = Math.floor(Math.random() * 9);
+        } while (board.gameboard[index] !== "");
+
+        switch(index) {
+            case 0:
+                position: p0;
+                break;
+            case 1:
+                position: p1;
+                break;
+            case 2:
+                position: p2;
+                break;
+            case 3:
+                position: p3;
+                break;
+            case 4:
+                position: p4;
+                break;
+            case 5:
+                position: p5;
+                break;
+            case 6:
+                position: p6;
+                break;
+            case 7:
+                position: p7;
+                break;
+            case 8:
+                position: p8;
+                break;
+        }
+
+        setTimeout(() => {
+            console.log(`p${index}`);
+            gameboardInteraction.movement(index, position);
+        }, 100);
+    }
+
+    return {
+        easy
+    }
+})();
