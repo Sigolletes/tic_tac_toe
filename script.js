@@ -8,8 +8,6 @@ const winnerContainer = document.querySelector("#winnerContainer");
 let firstTurn = false;
 let userTurn = "";
 
-console.log(Math.floor(Math.random() * 10));
-
 // FUNCTIONS
 
     // Module - Gameboard Object that stores the gameboard
@@ -56,23 +54,31 @@ let player2 = playerFactory("Player 2", false, "O");
 
 const controller = (function() {
     function gameTurn() {
-                     console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-                    console.log('gameTurn init', firstTurn, userTurn);
-        if (firstTurn) {
-            firstTurn = false;
-            userTurn = player2.name;
-        } else if (!firstTurn) {
-            firstTurn = true;
-            userTurn = player1.name;
-        } else {
-            console.log("Some problem with controller.gameTurn");
-        }
+                    console.log('gameTurn init $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+        boardCheck = board.gameboard.filter(p => p !== "");
+        
+        if (boardCheck.length === 0) {
+            if (firstTurn) {
+                firstTurn = false;
+                userTurn = player2.name;
+    
+                // AI GAME HAS TO BE OUT OF HERE
+                if (!player2.human && userTurn === player2.name) {
+                    ai.easy();
+                }
 
-        if (player2.human = false || userTurn === player2.name) {
-            ai.easy();
+            } else if (!firstTurn) {
+                firstTurn = true;
+                userTurn = player1.name;
+            } else {
+                console.log("Some problem with controller.gameTurn");
+            }
+            console.log('inside gameTurn if boardCheck');
         }
-                    console.log('gameTurn final', firstTurn, userTurn);
-                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+        console.log('after gameTurn if boardCheck', userTurn);
+
+        
+                    console.log('gameTurn final $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     }
 
     /* function randomTurn() {
@@ -180,7 +186,10 @@ const nameChoice = (() => {
         if (name2.value !== "") {
             player2.name = name2.value;
             titlePlayer2.innerText = player2.name;
-        } 
+        } else {
+            player2.name = "AI";
+            titlePlayer2.innerText = player2.name;
+        }
         nameContainer.style.display = "none";
         gameboardInteraction.boardEvent();
         controller.gameTurn();
@@ -252,34 +261,33 @@ const gameboardInteraction = (() => {
     }
 
     function changeTurn() {
+        /*             console.log('changeTurn init', userTurn); */
         if (userTurn === player1.name) {
             userTurn = player2.name;
+
+            if (!player2.human && userTurn === player2.name) {
+                ai.easy();
+            }
         } else if (userTurn === player2.name) {
             userTurn = player1.name;
         }
         setTurn();
 
-        if (player2.human = false || userTurn === player2.name) {
-            ai.easy();
-        }
+
     }
 
     function movement(index, position) {
-                     console.log('------------------------------------------------------------------');
-                    console.log('movement init', userTurn);
+                    console.log('movement init -----------------------------------------------------', userTurn);
         if (board.gameboard[index] === "") {
             board.mark(index);
             renderGameboard.render();
             position.style.cursor = "default";
             changeTurn();
-
-
         }
         controller.checkWinner(player1.mark);
         controller.checkWinner(player2.mark);
-                    console.log('movement final', userTurn);
-                    console.log('------------------------------------------------------------------');
-        return;
+                    console.log('movement final ---------------------------------------------------', userTurn);
+        
     }
 
     function boardEvent() {
@@ -375,46 +383,42 @@ const returnButton = (() => {
 const ai = (() => {
     function easy() {   
         let index;
-        let position;
 
         do {
             index = Math.floor(Math.random() * 9);
         } while (board.gameboard[index] !== "");
 
-        switch(index) {
-            case 0:
-                position: p0;
-                break;
-            case 1:
-                position: p1;
-                break;
-            case 2:
-                position: p2;
-                break;
-            case 3:
-                position: p3;
-                break;
-            case 4:
-                position: p4;
-                break;
-            case 5:
-                position: p5;
-                break;
-            case 6:
-                position: p6;
-                break;
-            case 7:
-                position: p7;
-                break;
-            case 8:
-                position: p8;
-                break;
-        }
-
         setTimeout(() => {
-            console.log(`p${index}`);
-            gameboardInteraction.movement(index, position);
-        }, 100);
+            switch(index) {
+                case 0:
+                    gameboardInteraction.movement(index, p0);
+                    break;
+                case 1:
+                    gameboardInteraction.movement(index, p1);
+                    break;
+                case 2:
+                    gameboardInteraction.movement(index, p2);
+                    break;
+                case 3:
+                    gameboardInteraction.movement(index, p3);
+                    break;
+                case 4:
+                    gameboardInteraction.movement(index, p4);
+                    break;
+                case 5:
+                    gameboardInteraction.movement(index, p5);
+                    break;
+                case 6:
+                    gameboardInteraction.movement(index, p6);
+                    break;
+                case 7:
+                    gameboardInteraction.movement(index, p7);
+                    break;
+                case 8:
+                    gameboardInteraction.movement(index, p8);
+                    break;
+            }
+        }, 1000);
     }
 
     return {
