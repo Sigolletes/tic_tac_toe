@@ -63,9 +63,7 @@ const controller = (function() {
                 userTurn = player2.name;
     
                 // AI GAME HAS TO BE OUT OF HERE
-                if (!player2.human && userTurn === player2.name) {
-                    ai.easy();
-                }
+
 
             } else if (!firstTurn) {
                 firstTurn = true;
@@ -120,10 +118,20 @@ const controller = (function() {
                 }
                 scoreboard.scoreboardUpdate();
              /*    renderGameboard.cleanGameboard(); */
-                gameTurn();
-                gameboardInteraction.setTurn();
+/*                 gameTurn();
+                gameboardInteraction.setTurn(); */
                 winnerContainer.style.display = "flex";
         }
+
+        // AD IF BOARD IS FULL AND NOBODY WINS
+        if (!board.gameboard.includes("")) {
+            const winnerText = document.querySelector("#winnerText");
+            winnerText.innerText = "Nobody wins! Try again";
+/*             gameTurn();
+            gameboardInteraction.setTurn(); */
+            winnerContainer.style.display = "flex";
+        }
+
     }
     return {
         checkWinner,
@@ -272,8 +280,6 @@ const gameboardInteraction = (() => {
             userTurn = player1.name;
         }
         setTurn();
-
-
     }
 
     function movement(index, position) {
@@ -282,11 +288,20 @@ const gameboardInteraction = (() => {
             board.mark(index);
             renderGameboard.render();
             position.style.cursor = "default";
-            changeTurn();
+            /* changeTurn(); */
         }
+
+  /*       if (!player2.human && userTurn === player2.name) {
+            ai.easy();
+        } */
+        changeTurn();
         controller.checkWinner(player1.mark);
         controller.checkWinner(player2.mark);
-                    console.log('movement final ---------------------------------------------------', userTurn);
+
+        
+
+
+/*                     console.log('movement final ---------------------------------------------------', userTurn); */
         
     }
 
@@ -369,6 +384,13 @@ const returnButton = (() => {
         renderGameboard.cleanGameboard();
         renderGameboard.render();
         gameboardInteraction.boardEvent();
+
+        controller.gameTurn();
+        gameboardInteraction.setTurn();
+
+        if (!player2.human && userTurn === player2.name) {
+            ai.easy();
+        }
     })
 })();
 
